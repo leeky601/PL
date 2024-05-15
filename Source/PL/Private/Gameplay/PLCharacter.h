@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include <Camera/CameraComponent.h>
 #include "PLCharacter.generated.h"
 
 UCLASS()
@@ -25,5 +26,25 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+private:
+	UPROPERTY()
+	TObjectPtr<USkeletalMeshComponent> ShadowBodyCPP;
+	
+	UPROPERTY()
+	TObjectPtr<UChildActorComponent> WeaponInBackCPP;
+
+	UPROPERTY()
+	TObjectPtr<USkeletalMeshComponent> LowerBodyCPP;
+
+	UPROPERTY()
+	TObjectPtr<UCameraComponent> CameraCPP;
+
+	UPROPERTY()
+	TObjectPtr<USkeletalMeshComponent> FirstPersonCPP;
+
+	UPROPERTY()
+	TObjectPtr<UChildActorComponent> WeaponCPP;
+
 
 };

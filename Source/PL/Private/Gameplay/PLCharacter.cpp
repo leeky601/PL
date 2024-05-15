@@ -9,6 +9,13 @@ APLCharacter::APLCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	ShadowBodyCPP = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("ShadowBodyCPP"));
+	WeaponInBackCPP = CreateDefaultSubobject<UChildActorComponent>(TEXT("WeaponInBackCPP"));
+	LowerBodyCPP = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("LowerBodyCPP"));
+	CameraCPP = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraCPP"));
+	FirstPersonCPP = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FirstPersonCPP"));
+	WeaponCPP = CreateDefaultSubobject<UChildActorComponent>(TEXT("WeaponCPP"));
+
 }
 
 // Called when the game starts or when spawned
