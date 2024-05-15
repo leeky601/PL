@@ -10,11 +10,31 @@ APLCharacter::APLCharacter()
 	PrimaryActorTick.bCanEverTick = true;
 
 	ShadowBodyCPP = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("ShadowBodyCPP"));
-	WeaponInBackCPP = CreateDefaultSubobject<UChildActorComponent>(TEXT("WeaponInBackCPP"));
+	if (ShadowBodyCPP) {
+		ShadowBodyCPP->SetupAttachment(RootComponent);
+		WeaponInBackCPP = CreateDefaultSubobject<UChildActorComponent>(TEXT("WeaponInBackCPP"));
+		if (WeaponInBackCPP) {
+			WeaponInBackCPP->SetupAttachment(ShadowBodyCPP);
+		}
+	}
+
 	LowerBodyCPP = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("LowerBodyCPP"));
+	if (LowerBodyCPP) {
+		LowerBodyCPP->SetupAttachment(RootComponent);
+	}
+
 	CameraCPP = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraCPP"));
-	FirstPersonCPP = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FirstPersonCPP"));
-	WeaponCPP = CreateDefaultSubobject<UChildActorComponent>(TEXT("WeaponCPP"));
+	if (CameraCPP) {
+		CameraCPP->SetupAttachment(RootComponent);
+		FirstPersonCPP = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FirstPersonCPP"));
+		if (FirstPersonCPP) {
+			FirstPersonCPP->SetupAttachment(CameraCPP);
+			WeaponCPP = CreateDefaultSubobject<UChildActorComponent>(TEXT("WeaponCPP"));
+			if (WeaponCPP) {
+				WeaponCPP->SetupAttachment(FirstPersonCPP);
+			}
+		}
+	}
 
 }
 
