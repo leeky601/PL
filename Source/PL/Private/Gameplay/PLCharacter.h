@@ -7,6 +7,17 @@
 #include <Camera/CameraComponent.h>
 #include "PLCharacter.generated.h"
 
+
+UENUM(BlueprintType)
+enum class StateCharacterCPP : uint8
+{
+	Idle,
+	Aiming,
+	Reloading,
+	Swapping,
+	running,
+};
+
 UCLASS()
 class APLCharacter : public ACharacter
 {
@@ -26,6 +37,25 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	UFUNCTION(BlueprintCallable)
+	virtual float GetSpeed() const;
+
+protected:
+	UPROPERTY(Category = Character, VisibleAnywhere, BlueprintReadWrite)
+	StateCharacterCPP StateCPP;
+
+	UPROPERTY(Category = Character, VisibleAnywhere, BlueprintReadWrite)
+	bool IsRunCPP;
+
+	UPROPERTY(Category = Character, VisibleAnywhere, BlueprintReadWrite)
+	float MoveForwardValueCPP;
+
+	UPROPERTY(Category = Character, EditAnywhere, BlueprintReadWrite)
+	TObjectPtr<USoundBase> FootLeftSoundCPP;
+
+	UPROPERTY(Category = Character, EditAnywhere, BlueprintReadWrite)
+	TObjectPtr<USoundBase> FootRightdSoundCPP;
 
 private:
 	UPROPERTY(Category = Character, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
