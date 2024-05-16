@@ -15,6 +15,10 @@ public:
 	// Sets default values for this actor's properties
 	APLGun();
 
+	UFUNCTION(BlueprintCallable)
+	void FireBulletCPP(UClass*BulletClass, FTransform Transform);
+
+	void RegisterNextFireCPP(float Duration);
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -22,5 +26,9 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+protected:
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	float BulletSpeedCPP;
 
 };

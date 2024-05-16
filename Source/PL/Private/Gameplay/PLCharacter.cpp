@@ -44,7 +44,7 @@ APLCharacter::APLCharacter()
 void APLCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 }
 
 // Called every frame
@@ -98,6 +98,11 @@ void APLCharacter::TickRunCPP()
 void APLCharacter::OnFootStepLeftCPP()
 {
 	UGameplayStatics::PlaySoundAtLocation(this, FootLeftSoundCPP, LowerBodyCPP->GetSocketLocation("foot_l"));
+}
+
+void APLCharacter::OnFootStepRightCPP()
+{
+	UGameplayStatics::PlaySoundAtLocation(this, FootRightdSoundCPP, LowerBodyCPP->GetSocketLocation("foot_r"));
 }
 
 void APLCharacter::OnTriggerRun(const FInputActionValue& Value)

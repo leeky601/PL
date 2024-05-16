@@ -40,6 +40,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	virtual void OnFootStepLeftCPP();
 
+	UFUNCTION(BlueprintCallable)
+	virtual void OnFootStepRightCPP();
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
