@@ -39,7 +39,10 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	UFUNCTION(BlueprintCallable)
-	virtual float GetSpeed() const;
+	virtual float GetSpeedCPP() const;
+
+	UFUNCTION(BlueprintCallable)
+	virtual bool CanRunCPP() const;
 
 protected:
 	UPROPERTY(Category = Character, VisibleAnywhere, BlueprintReadWrite)

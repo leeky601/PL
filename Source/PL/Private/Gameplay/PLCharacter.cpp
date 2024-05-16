@@ -59,8 +59,12 @@ void APLCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 
 }
 
-float APLCharacter::GetSpeed() const
+float APLCharacter::GetSpeedCPP() const
 {
-	return GetVelocity().Length();
+	return GetVelocity().Length(); 
 }
 
+bool APLCharacter::CanRunCPP() const
+{
+	return false;
+}
