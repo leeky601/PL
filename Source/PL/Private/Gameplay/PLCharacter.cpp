@@ -2,7 +2,9 @@
 
 
 #include "Gameplay/PLCharacter.h"
-
+#include <GameFramework/CharacterMovementComponent.h>
+#include <Kismet/GameplayStatics.h>
+#include <EnhancedInputComponent.h>
 // Sets default values
 APLCharacter::APLCharacter()
 {
@@ -57,6 +59,12 @@ void APLCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(PlayerInputComponent)) {
+
+		EnhancedInputComponent->BindAction(RunAction, ETriggerEvent::Triggered, this, &APLCharacter::OnTriggerRun);
+
+	}
+
 }
 
 float APLCharacter::GetSpeedCPP() const
@@ -66,5 +74,36 @@ float APLCharacter::GetSpeedCPP() const
 
 bool APLCharacter::CanRunCPP() const
 {
-	return false;
+	return ((MoveForwardValueCPP > 0.0) && IsRunCPP);
 }
+
+void APLCharacter::TickRunCPP()
+{
+	if (CanRunCPP()) {
+		switch (StateCPP) {
+		case StateCharacterCPP::Idle:
+			StateCPP = StateCharacterCPP::running;
+			GetCharacterMovement()->MaxWalkSpeed *= 2.0;
+		}
+	}
+	else {
+		switch (StateCPP) {
+		case StateCharacterCPP::running:
+			StateCPP = StateCharacterCPP::Idle;
+			GetCharacterMovement()->MaxWalkSpeed *= 0.5;
+		}
+	}
+}
+
+void APLCharacter::OnFootStepLeftCPP()
+{
+	UGameplayStatics::PlaySoundAtLocation(this, FootLeftSoundCPP, LowerBodyCPP->GetSocketLocation("foot_l"));
+}
+
+void APLCharacter::OnTriggerRun(const FInputActionValue& Value)
+{
+	IsRunCPP = Value.Get<bool>();
+}
+
+
+
