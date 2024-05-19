@@ -22,9 +22,6 @@ protected:
 	UFUNCTION()
 	void OnHitCallback(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	float SpeedCPP;
-
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -32,6 +29,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SetSpeedCPP(float Value);
 
+protected:
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	float SpeedCPP;
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UStaticMeshComponent> BulletCPP;

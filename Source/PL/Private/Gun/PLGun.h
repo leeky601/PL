@@ -18,7 +18,17 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void FireBulletCPP(UClass*BulletClass, FTransform Transform);
 
+	UFUNCTION(BlueprintCallable)
 	void RegisterNextFireCPP(float Duration);
+
+	UFUNCTION(BlueprintCallable)
+	void FireReleasedCPP(FTimerHandle TimerFireCPP);
+
+	UFUNCTION(BlueprintCallable)
+	bool IsFiringCPP() const;
+
+	UFUNCTION(BlueprintCallable)
+	void MakeRecoilCPP();
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -28,7 +38,12 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 protected:
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float BulletSpeedCPP;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	FTimerHandle TimerFireCPP;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	bool IsFirePressedCPP;
 };
