@@ -28,7 +28,7 @@ void APLGun::RegisterNextFireCPP(float Duration)
 	TimerFireCPP = UKismetSystemLibrary::K2_SetTimer(this, TEXT("Fire"), Duration, false);
 }
 
-void APLGun::FireReleasedCPP(FTimerHandle TimerFireCPP)
+void APLGun::FireReleasedCPP()
 {
 	IsFirePressedCPP = false;
 	GetWorld()->GetTimerManager().ClearTimer(TimerFireCPP);

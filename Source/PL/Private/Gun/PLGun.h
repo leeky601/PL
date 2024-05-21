@@ -22,7 +22,7 @@ public:
 	void RegisterNextFireCPP(float Duration);
 
 	UFUNCTION(BlueprintCallable)
-	void FireReleasedCPP(FTimerHandle TimerFireCPP);
+	void FireReleasedCPP();
 
 	UFUNCTION(BlueprintCallable)
 	bool IsFiringCPP() const;
