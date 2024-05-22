@@ -25,6 +25,9 @@ public:
 	void FireReleasedCPP();
 
 	UFUNCTION(BlueprintCallable)
+	void FirePressedCPP();
+
+	UFUNCTION(BlueprintCallable)
 	bool IsFiringCPP() const;
 
 	UFUNCTION(BlueprintCallable)
@@ -46,4 +49,9 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	bool IsFirePressedCPP;
+
+private:
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<USkeletalMeshComponent> GunCPP;
 };

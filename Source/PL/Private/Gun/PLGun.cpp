@@ -13,6 +13,11 @@ APLGun::APLGun()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	/*GunCPP = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("GunCPP"));*/
+
+	
+	
+
 }
 
 void APLGun::FireBulletCPP(UClass* BulletClass, FTransform Transform)
@@ -32,6 +37,11 @@ void APLGun::FireReleasedCPP()
 {
 	IsFirePressedCPP = false;
 	GetWorld()->GetTimerManager().ClearTimer(TimerFireCPP);
+}
+
+void APLGun::FirePressedCPP()
+{
+	IsFirePressedCPP = true;
 }
 
 bool APLGun::IsFiringCPP() const
