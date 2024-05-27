@@ -13,10 +13,13 @@ APLGun::APLGun()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	/*GunCPP = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("GunCPP"));*/
-
-	
-	
+	/*GunCPP = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("GunCPP"));
+	if(GunCPP){
+		FrontOfGunCPP = CreateDefaultSubobject<USceneComponent>(TEXT("FrontofGunCPP"));
+		if (FrontOfGunCPP) {
+			FrontOfGunCPP->SetupAttachment(GunCPP);
+		}
+	}*/
 
 }
 
