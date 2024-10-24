@@ -39,6 +39,7 @@ void APLGun::FireReleasedCPP()
 void APLGun::FirePressedCPP()
 {
 	IsFirePressedCPP = true;
+	
 }
 
 bool APLGun::IsFiringCPP() const

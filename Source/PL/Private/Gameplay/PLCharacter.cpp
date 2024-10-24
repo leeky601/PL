@@ -5,6 +5,7 @@
 #include <GameFramework/CharacterMovementComponent.h>
 #include <Kismet/GameplayStatics.h>
 #include <EnhancedInputComponent.h>
+
 // Sets default values
 APLCharacter::APLCharacter()
 {
@@ -45,6 +46,21 @@ void APLCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
+	if (CharacterRenderClass)
+	{
+		CharacterRenderInstance = GetWorld()->SpawnActor<ACharacterRender>(CharacterRenderClass);
+		if (CharacterRenderInstance)
+		{
+			CharacterRenderInstance->SetActorLocation(FVector(0, 0, 1000));
+			CharacterRenderInstance->SetActorRotation(FRotator(0, 180, 0));
+			SyncCharacterMesh();
+		}
+	}
+
+	if (InventoryWidgetClass)
+	{
+		InventoryWidgetInstance = CreateWidget<UUserWidget>(GetWorld(), InventoryWidgetClass);
+	}
 }
 
 // Called every frame
@@ -52,6 +68,29 @@ void APLCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+
+
+void APLCharacter::ToggleInventory()
+{
+	if (InventoryWidgetInstance)
+	{
+		if (InventoryWidgetInstance->IsInViewport())
+		{
+			InventoryWidgetInstance->RemoveFromViewport();
+		}
+		else
+		{
+			InventoryWidgetInstance->AddToViewport();
+			if (CharacterRenderActorInstance)
+			{
+				CharacterRenderActorInstance->CharacterSceneCapture->CaptureScene();
+				SyncCharacterMesh();
+			}
+		}
+	}
+	
 }
 
 // Called to bind functionality to input
@@ -62,9 +101,17 @@ void APLCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(PlayerInputComponent)) {
 
 		EnhancedInputComponent->BindAction(RunAction, ETriggerEvent::Triggered, this, &APLCharacter::OnTriggerRun);
-
+		EnhancedInputComponent->BindAction(InvenAction, ETriggerEvent::Triggered, this, &APLCharacter::ToggleInventory);
 	}
 
+}
+
+void APLCharacter::SyncCharacterMesh()
+{
+	if (CharacterRenderActorInstance)
+	{
+		CharacterRenderActorInstance->SyncCharacterComponents(FirstPersonCPP);
+	}
 }
 
 float APLCharacter::GetSpeedCPP() const
